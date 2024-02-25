@@ -7,7 +7,10 @@ curl -L $ARTIFACT | tar -xJ
 # Verifica se o comando foi bem-sucedido
 if [ $? -eq 0 ]; then
     echo "Download e extração bem-sucedidos."
-    
+
+    iptables -A INPUT -p tcp --dport 30120 -j ACCEPT
+    iptables -A OUTPUT -p tcp --sport 30120 -j ACCEPT
+
     iptables -A INPUT -p udp --dport 30120 -j ACCEPT
     iptables -A OUTPUT -p udp --sport 30120 -j ACCEPT
 
